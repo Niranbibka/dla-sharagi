@@ -1,0 +1,160 @@
+/* Functional Liquid Glass, separate from the quieter reading surfaces. */
+:root {
+  --liquid-wash: rgba(255,255,255,.7);
+  --liquid-rim: rgba(0,0,0,.09);
+  --liquid-top: rgba(255,255,255,.88);
+  --liquid-bottom: rgba(0,0,0,.035);
+  --liquid-shadow: 0 8px 28px rgba(0,0,0,.065);
+  --content-fill: rgba(255,255,255,.94);
+  --content-rim: rgba(0,0,0,.08);
+  --diagram-fill: #f1f1f1;
+}
+:root[data-theme='dark'] {
+  --liquid-wash: rgba(12,12,12,.62);
+  --liquid-rim: rgba(255,255,255,.15);
+  --liquid-top: rgba(255,255,255,.14);
+  --liquid-bottom: rgba(255,255,255,.035);
+  --liquid-shadow: 0 8px 28px rgba(0,0,0,.38);
+  --content-fill: rgba(16,16,16,.94);
+  --content-rim: rgba(255,255,255,.095);
+  --diagram-fill: #191919;
+}
+
+/* Round-corner fallback; supporting browsers get an actual n=4 squircle below. */
+.article-card,.card-featured,.card-wide,.reading-cover,.code-block,.related-card,.empty-state {
+  --corner-size: 44px;
+  border-radius: 28px;
+  border: 1px solid var(--content-rim);
+  background: var(--content-fill);
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  overflow: hidden;
+}
+[data-theme='dark'] .article-card,[data-theme='dark'] .article-card:hover {
+  box-shadow: none;
+}
+:root[data-theme='light'] :is(.article-card,.card-featured,.card-wide) {
+  box-shadow: 0 2px 12px rgba(0,0,0,.025);
+}
+.article-card::after { display: none; }
+.article-card .card-link { border-radius: inherit; corner-shape: inherit; }
+.article-card::before,.article-card::after,.card-link::before,.card-link::after {
+  border-radius: inherit;
+  corner-shape: inherit;
+}
+
+.filter-bar,.site-header .header-inner {
+  --corner-size: 32px;
+  border-radius: 22px;
+  border: 1px solid var(--liquid-rim);
+  background: var(--liquid-wash);
+  box-shadow: var(--liquid-shadow);
+  -webkit-backdrop-filter: blur(16px) saturate(100%);
+  backdrop-filter: blur(16px) saturate(100%);
+}
+.filter-bar.glass-surface,.site-header .header-inner.glass-surface {
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  isolation: isolate;
+  overflow: hidden;
+}
+.site-header .header-inner.glass-surface { position: relative; }
+.glass-surface > :not(.glass-optics):not(.glass-wash):not(.glass-definitions) {
+  position: relative;
+  z-index: 1;
+}
+.glass-optics,.glass-wash {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  corner-shape: inherit;
+  pointer-events: none;
+}
+.glass-optics {
+  -webkit-backdrop-filter: blur(16px) saturate(100%);
+  backdrop-filter: blur(16px) saturate(100%);
+}
+.glass-wash {
+  background: var(--liquid-wash);
+  box-shadow: inset 0 1px 0 var(--liquid-top), inset 0 -1px 0 var(--liquid-bottom);
+}
+.glass-surface::before,.glass-surface::after {
+  border-radius: inherit;
+  corner-shape: inherit;
+}
+.glass-definitions {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bookmark-button,.saved-toggle,.theme-toggle,.search-field,.back-link,.reading-close,.copy-button,.load-more,.article-tags>span {
+  --corner-size: 14px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.075);
+  border-color: var(--liquid-rim);
+  box-shadow: inset 0 1px 0 var(--liquid-top);
+  -webkit-backdrop-filter: blur(12px) saturate(100%);
+  backdrop-filter: blur(12px) saturate(100%);
+}
+:root[data-theme='light'] :is(.bookmark-button,.saved-toggle,.theme-toggle,.search-field,.back-link,.reading-close,.copy-button,.load-more,.article-tags>span) {
+  background: rgba(255,255,255,.48);
+}
+.tab-indicator {
+  --corner-size: 12px;
+  border-radius: 8px;
+  background: rgba(255,255,255,.1);
+  border-color: var(--liquid-rim);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+}
+:root[data-theme='light'] .tab-indicator { background: rgba(255,255,255,.7); }
+
+/* Reading and diagram content stays legible; the optical layer belongs to controls. */
+.card-visual,.card-featured .card-visual,.card-wide .card-visual,.reading-cover .card-visual {
+  background: var(--diagram-fill);
+  border-color: var(--content-rim);
+}
+.prompt-layer,.prompt-layer:nth-child(2),.prompt-layer:nth-child(3),.code-window,.tool-grid>div,.flow-node,.flow-node.active,.orbit-center {
+  --corner-size: 16px;
+  border-radius: 10px;
+  border-color: var(--content-rim);
+  background: var(--card);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.045);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.prompt-layer:nth-child(2) { background: var(--raised-second); }
+.prompt-layer:nth-child(3),.flow-node.active,.orbit-center { background: var(--raised-third); }
+
+@supports (corner-shape: superellipse(2)) {
+  .article-card,.card-featured,.card-wide,.reading-cover,.code-block,.related-card,.empty-state,
+  .filter-bar,.site-header .header-inner,.bookmark-button,.saved-toggle,.theme-toggle,.search-field,
+  .back-link,.reading-close,.copy-button,.load-more,.article-tags>span,.tab-indicator,
+  .prompt-layer,.code-window,.tool-grid>div,.flow-node,.orbit-center {
+    border-radius: var(--corner-size);
+    corner-shape: superellipse(2);
+  }
+}
+@media(max-width:640px) {
+  .article-card,.card-featured,.card-wide,.reading-cover,.code-block,.related-card,.empty-state { --corner-size: 36px; }
+  .filter-bar,.site-header .header-inner { --corner-size: 28px; }
+  .glass-optics { -webkit-backdrop-filter: blur(12px) saturate(100%); backdrop-filter: blur(12px) saturate(100%); }
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+  .filter-bar,.site-header .header-inner,.glass-wash { background: var(--raised); }
+}
+@media(prefers-reduced-transparency:reduce) {
+  .glass-optics { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  .glass-wash { background: var(--raised); }
+  .filter-bar,.site-header .header-inner,.bookmark-button,.saved-toggle,.theme-toggle,.search-field,.back-link,.reading-close,.copy-button,.load-more,.article-tags>span {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--card);
+  }
+  .article-card,.card-featured,.card-wide,.reading-cover,.code-block,.related-card,.empty-state { background: var(--card); }
+}

@@ -1,0 +1,52 @@
+/* Continuous, reversible hover motion. No card press animation or replayed keyframes. */
+:root{--object-motion-ease:cubic-bezier(.4,0,.2,1)}
+.article-card{transition:background-color .28s var(--motion-ease),border-color .28s var(--motion-ease),box-shadow .28s var(--motion-ease)}
+.article-card:hover{border-color:var(--border-hover);box-shadow:none}
+.card-arrow{transition:transform .5s var(--object-motion-ease),color .25s}
+.card-artwork .visual-parallax>*,
+.prompt-layer,.orbit-ring,.orbit-center,.tool-grid>div,.code-lines>span,.flow-node,.system-terminal>span{
+  transition-property:transform,box-shadow;
+  transition-duration:.7s;
+  transition-timing-function:var(--object-motion-ease);
+  transition-delay:0s;
+}
+.orbit-ring{transform:rotate(0deg);transform-origin:center;transition-duration:1.05s}
+.orbit-center{transform:rotate(0deg) scale(1);transition-duration:.9s}
+.tool-grid>div{transform:translate(0,0) rotate(0deg)}
+.code-lines>span{transform:translateX(0);transition-duration:.6s}
+.flow-node{transform:translateY(0);transition-duration:.65s}
+.system-terminal>span{position:relative;display:inline-block;transform:translateX(0)}
+.system-terminal>span::after{content:'';position:absolute;left:calc(100% + 8px);top:20%;width:2px;height:62%;background:currentColor;opacity:0;pointer-events:none;transition:opacity .55s var(--object-motion-ease)}
+@media(hover:hover) and (pointer:fine){
+  .article-card:hover .card-arrow{transform:translate(2px,-2px)}
+  .article-card:hover .prompt-stack{transform:rotate(-8deg) translate(8px,0)}
+  .article-card:hover .prompt-layer:first-child{transform:translate(3px,-2px) rotate(.5deg)}
+  .article-card:hover .prompt-layer:nth-child(2){transform:translate(-6px,0) rotate(-.25deg)}
+  .article-card:hover .prompt-layer:nth-child(3){transform:translate(-10px,2px) rotate(-.5deg)}
+  .article-card:hover .code-window{transform:rotate(-1deg) translateY(-2px)}
+  .article-card:hover .code-lines>span{transform:translateX(2px)}
+  .article-card:hover .context-orbits{transform:rotate(3deg)}
+  .article-card:hover .orbit-ring.one{transform:rotate(22deg)}
+  .article-card:hover .orbit-ring.two{transform:rotate(-30deg)}
+  .article-card:hover .orbit-center{transform:rotate(-4deg)}
+  .article-card:hover .flow-node{transform:translateY(-2px)}
+  .article-card:hover .flow-node:nth-of-type(2){transition-delay:.05s}
+  .article-card:hover .flow-node:nth-of-type(3){transition-delay:.1s}
+  .article-card:hover .tool-grid>div:nth-child(1){transform:translate(-2px,-2px) rotate(-2deg)}
+  .article-card:hover .tool-grid>div:nth-child(2){transform:translate(2px,-2px) rotate(2deg)}
+  .article-card:hover .tool-grid>div:nth-child(3){transform:translate(-2px,2px) rotate(-1deg)}
+  .article-card:hover .tool-grid>div:nth-child(4){transform:translate(2px,2px) rotate(1deg)}
+  .article-card:hover .system-terminal>span{transform:translateX(2px)}
+  .article-card:hover .system-terminal>span::after{opacity:.65}
+}
+.reading-reveal{will-change:transform,opacity}
+@media(prefers-reduced-motion:reduce){
+  .article-card,.card-arrow,.card-artwork .visual-parallax>*,.prompt-layer,.orbit-ring,.orbit-center,.tool-grid>div,.code-lines>span,.flow-node,.system-terminal>span,.system-terminal>span::after{transition:none!important;animation:none!important}
+  .article-card:hover .prompt-stack{transform:rotate(-8deg) translate(12px,0)}
+  .article-card:hover .prompt-layer:first-child{transform:none}
+  .article-card:hover .prompt-layer:nth-child(2){transform:translateX(-12px)}
+  .article-card:hover .prompt-layer:nth-child(3){transform:translateX(-24px)}
+  .article-card:hover .code-window{transform:rotate(-3deg)}
+  .article-card:hover .code-lines>span,.article-card:hover .context-orbits,.article-card:hover .orbit-ring,.article-card:hover .orbit-center,.article-card:hover .tool-grid>div,.article-card:hover .flow-node,.article-card:hover .system-terminal>span,.article-card:hover .card-arrow{transform:none}
+  .system-terminal>span::after{display:none}
+}

@@ -1,0 +1,27 @@
+/* Purposeful feedback only. Unslop pass: Damir Sokolovsky (@heydamir), CC BY 4.0. */
+:root{--motion-ease:cubic-bezier(.22,1,.36,1)}
+.article-card{animation:none;translate:none;transform-style:flat;transition:background-color 180ms var(--motion-ease),border-color 180ms var(--motion-ease)}
+.article-card:hover{transform:none}
+.card-artwork{height:192px;min-height:192px;flex:0 0 192px;position:relative;width:100%}
+.card-artwork>.card-visual{width:100%;height:100%;min-height:100%}
+.card-featured>.card-artwork,.card-wide>.card-artwork{width:46%;height:100%;min-height:100%;flex:0 0 46%}
+.card-featured .card-artwork>.card-visual,.card-wide .card-artwork>.card-visual{width:100%;height:100%;min-height:100%}
+.visual-parallax{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+.bookmark-button{transition:color 180ms var(--motion-ease),background-color 180ms var(--motion-ease),border-color 180ms var(--motion-ease)}
+.bookmark-button:hover{transform:none}
+.filter-tabs{isolation:isolate}
+.filter-tab{position:relative;background:transparent!important;box-shadow:none!important;isolation:isolate;transition:color 180ms var(--motion-ease)}
+.tab-indicator{position:absolute;inset:0;z-index:-1;border-radius:8px;pointer-events:none}
+.tab-label{position:relative;z-index:1}
+.reading-page{animation:none}
+.reading-progress{position:fixed;left:0;top:0;right:0;height:2px;transform-origin:left center;z-index:30;pointer-events:none;background:currentColor;opacity:.45}
+.reading-reveal{will-change:opacity,transform}
+::view-transition-old(root){animation:page-out 160ms var(--motion-ease) both}
+::view-transition-new(root){animation:page-in 200ms var(--motion-ease) both}
+::view-transition-group(root){animation-duration:200ms;animation-timing-function:var(--motion-ease)}
+::view-transition{pointer-events:none}
+@keyframes page-out{to{opacity:0}}
+@keyframes page-in{from{opacity:0}}
+@media(max-width:900px){.card-featured>.card-artwork,.card-wide>.card-artwork{width:46%;flex-basis:46%}}
+@media(max-width:640px){.card-artwork{height:192px;min-height:192px;flex-basis:192px}.card-featured>.card-artwork,.card-wide>.card-artwork{width:100%;height:192px;min-height:192px;flex-basis:192px;order:-1}.card-featured .card-artwork>.card-visual,.card-wide .card-artwork>.card-visual{width:100%;height:100%;min-height:100%}}
+@media(prefers-reduced-motion:reduce){.reading-reveal{will-change:auto}.article-card,.bookmark-button,.filter-tab{transition:none!important}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation-duration:.001ms!important}}

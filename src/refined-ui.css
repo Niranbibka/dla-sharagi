@@ -1,0 +1,98 @@
+/* Calm header and control polish: motion stays visible without decorative chrome. */
+.filter-bar,
+.site-header .header-inner {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.filter-bar {
+  min-height: 56px;
+  padding: 8px 0;
+  border-radius: 0 !important;
+}
+
+.site-header .header-inner {
+  border-radius: 0 !important;
+  padding-inline: 0;
+}
+
+/* Keep the rim even on every side. The old top-only inset made the upper
+   edge read heavier than the lower edge, especially on small controls. */
+.search-field,
+.saved-toggle,
+.theme-toggle,
+.bookmark-button,
+.back-link,
+.reading-close,
+.copy-button,
+.load-more,
+.article-tags > span,
+.prompt-layer,
+.code-window,
+.tool-grid > div,
+.flow-node,
+.orbit-center {
+  border-width: 1px;
+  border-style: solid;
+  box-shadow: none !important;
+}
+
+.filter-bar {
+  overflow: visible;
+  top: max(16px, env(safe-area-inset-top));
+}
+
+.saved-toggle {
+  position: relative;
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+.saved-toggle-icon {
+  position: absolute;
+  left: 6.5px;
+  top: 6.5px;
+  display: inline-flex;
+  width: 17px;
+  height: 17px;
+  align-items: center;
+  justify-content: center;
+}
+
+.saved-count {
+  position: absolute;
+  right: 7px;
+  top: 0;
+  bottom: 0;
+  display: inline-flex;
+  min-width: 1ch;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.animated-bookmark {
+  display: block;
+  overflow: visible;
+  transform-origin: center;
+}
+
+.article-card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 640px) {
+  .filter-bar { top: 8px; padding-block: 6px; }
+}
